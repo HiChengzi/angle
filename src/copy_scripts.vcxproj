@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -24,9 +24,9 @@
     <RootNamespace>copy_scripts</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <CharacterSet>MultiByte</CharacterSet>
     <ConfigurationType>Utility</ConfigurationType>
@@ -34,13 +34,13 @@
   <PropertyGroup Label="Locals">
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
-  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props"/>
-  <ImportGroup Label="ExtensionSettings"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="PropertySheets">
-    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"/>
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
   </ImportGroup>
-  <PropertyGroup Label="UserMacros"/>
+  <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <ExecutablePath>$(ExecutablePath);$(MSBuildProjectDirectory)\..\third_party\cygwin\bin\;$(MSBuildProjectDirectory)\..\third_party\python_26\</ExecutablePath>
     <OutDir>$(SolutionDir)$(Configuration)_$(Platform)\</OutDir>
@@ -50,6 +50,22 @@
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryWPath>$(WDKBinRoot)\$(WindowsTargetPlatformVersion)\$(PROCESSOR_ARCHITECTURE);$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryWPath>$(WDKBinRoot)\$(WindowsTargetPlatformVersion)\$(PROCESSOR_ARCHITECTURE);$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -206,23 +222,25 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="angle.gyp"/>
+    <None Include="angle.gyp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="commit_id.py">
       <FileType>Document</FileType>
-      <Command>call mkdir &quot;$(OutDir)obj\global_intermediate\angle&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;commit_id.py&quot; &quot;$(OutDir)obj\global_intermediate\angle\commit_id.py&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
+      <Command>call mkdir "$(OutDir)obj\global_intermediate\angle" 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y "commit_id.py" "$(OutDir)obj\global_intermediate\angle\commit_id.py"
+if %errorlevel% neq 0 exit /b %errorlevel%</Command>
       <Message>Copying commit_id.py to $(OutDir)obj\global_intermediate\angle</Message>
       <Outputs>$(OutDir)obj\global_intermediate\angle\commit_id.py</Outputs>
     </CustomBuild>
     <CustomBuild Include="copy_compiler_dll.bat">
       <FileType>Document</FileType>
-      <Command>call mkdir &quot;$(OutDir)obj\global_intermediate\angle&quot; 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y &quot;copy_compiler_dll.bat&quot; &quot;$(OutDir)obj\global_intermediate\angle\copy_compiler_dll.bat&quot;&#xD;&#xA;if %errorlevel% neq 0 exit /b %errorlevel%</Command>
+      <Command>call mkdir "$(OutDir)obj\global_intermediate\angle" 2&gt;nul &amp; set ERRORLEVEL=0 &amp; copy /Y "copy_compiler_dll.bat" "$(OutDir)obj\global_intermediate\angle\copy_compiler_dll.bat"
+if %errorlevel% neq 0 exit /b %errorlevel%</Command>
       <Message>Copying copy_compiler_dll.bat to $(OutDir)obj\global_intermediate\angle</Message>
       <Outputs>$(OutDir)obj\global_intermediate\angle\copy_compiler_dll.bat</Outputs>
     </CustomBuild>
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
-  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>
-  <ImportGroup Label="ExtensionTargets"/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

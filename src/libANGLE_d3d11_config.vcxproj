@@ -24,7 +24,7 @@
     <RootNamespace>libANGLE_d3d11_config</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
@@ -51,6 +51,22 @@
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <TargetName>$(ProjectName)</TargetName>
     <TargetPath>$(OutDir)\$(ProjectName)$(TargetExt)</TargetPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryWPath>$(WDKBinRoot)\$(WindowsTargetPlatformVersion)\$(PROCESSOR_ARCHITECTURE);$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryWPath>$(WDKBinRoot)\$(WindowsTargetPlatformVersion)\$(PROCESSOR_ARCHITECTURE);$(LibraryWPath)</LibraryWPath>
+    <IncludePath>..\..\..\test_code\thirdparty\d3d11sdk\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
